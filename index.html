@@ -80,6 +80,7 @@
 </head>
 
 <body>
+    <!--product value input box  -->
     <form id="product">
         <input type="text" id="title" placeholder="title" />
         <input type="number" name="" id="price" placeholder="price" />
@@ -91,13 +92,24 @@
             <option value="men">men</option>
         </select>
         <input type="submit" value="create" />
-        
     </form>
+    <!-- end -->
+    <!-- sortProducts price -->
     <button id="sortAsc">Sort Low to High</button>
     <button id="sortDesc">Sort High to Low</button>
+    <!-- end -->
+    <!-- category products button -->
+    <button id="filterKids">Filter Kids</button>
+    <button id="filterWomen">Filter Women</button>
+    <button id="filterMen">Filter Men</button>
+    <button id="filterAll">Show All</button>
+    <!-- end -->
     <hr>
+    <!--  -->
     <div id="productList"></div>
+    <!--  -->
     <script>
+        ////start///
         const getValue = (id) => {
             return document.getElementById(id).value;
         };
@@ -127,7 +139,6 @@
                 document.getElementById("productList").append(div);
             });
         };
-       
         uiMaker(products)
 
         const handleSubmit = (e) => {
@@ -142,22 +153,41 @@
             uiMaker(products);
             localStorage.setItem("products", JSON.stringify(products));
         };
-
         document.getElementById("product").addEventListener("submit", handleSubmit);
+        ///end///
+
+        ////// sortProducts price /////
         const sortProducts = (order) => {
             let temp;
             if (order === "asc") {
-              temp=products.sort((a, b) => a.price - b.price);
+                temp = products.sort((a, b) => a.price - b.price);
             } else if (order === "desc") {
-              temp= products.sort((a, b) => b.price - a.price);
+                temp = products.sort((a, b) => b.price - a.price);
             }
             console.log(temp);
-            
+
             uiMaker(temp);
         };
-
         document.getElementById("sortAsc").addEventListener("click", () => sortProducts("asc"));
         document.getElementById("sortDesc").addEventListener("click", () => sortProducts("desc"));
+        // end //
+
+
+        ////////category products//////
+        const filterCategory = (category) => {
+            if (category === "All") {
+                uiMaker(products);
+            } else {
+                const filteredProducts = products.filter(product => product.category === category);
+                uiMaker(filteredProducts);
+            }
+        };
+
+        document.getElementById("filterKids").addEventListener("click", () => filterCategory("kids"));
+        document.getElementById("filterWomen").addEventListener("click", () => filterCategory("women"));
+        document.getElementById("filterMen").addEventListener("click", () => filterCategory("men"));
+        document.getElementById("filterAll").addEventListener("click", () => filterCategory("All"));
+        // end //
     </script>
 </body>
 
