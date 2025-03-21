@@ -94,6 +94,9 @@
         <input type="submit" value="create" />
     </form>
     <!-- end -->
+    <!-- Search box -->
+    <input type="text" id="searchBox" placeholder="Search by title" />
+    <!-- end  -->
     <!-- sortProducts price -->
     <button id="sortAsc">Sort Low to High</button>
     <button id="sortDesc">Sort High to Low</button>
@@ -188,6 +191,13 @@
         document.getElementById("filterMen").addEventListener("click", () => filterCategory("men"));
         document.getElementById("filterAll").addEventListener("click", () => filterCategory("All"));
         // end //
+        // Search functionality
+        document.getElementById("searchBox").addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchTerm));
+            uiMaker(filteredProducts);
+        });
+        // end
     </script>
 </body>
 
